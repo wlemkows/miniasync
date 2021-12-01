@@ -9,6 +9,9 @@ project(libuasync C)
 
 set(LIBUASYNC_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/)
 set(LIBUASYNC_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src/include/)
+if(WIN32)
+	set(LIBUASYNC_INCLUDE_DIR_WIN ${CMAKE_SOURCE_DIR}/src/windows/include/)
+endif()
 
 option(COVERAGE "run coverage test" OFF)
 option(DEVELOPER_MODE "enable developer checks" OFF)
@@ -24,7 +27,9 @@ include(GNUInstallDirs)
 include(${CMAKE_SOURCE_DIR}/cmake/functions.cmake)
 
 # look for pkg config (use it later for managing valgrind)
-find_package(PkgConfig REQUIRED)
+if(NOT WIN32)
+	find_package(PkgConfig REQUIRED)
+endif()
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -92,7 +97,7 @@ endif()
 
 # add checkers for the root CMakeLists file and for cmake helper files
 add_check_whitespace(cmake-main ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt)
-add_check_whitespace(cmake-helpers ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.cmake)
+add_check_whitespace(cmake-helpers ${CMAKE_CURRENT_SOURCE_DIR}/cmake/*.[cmake])
 
 # add CMakeLists.txt from the src directory
 add_subdirectory(src)

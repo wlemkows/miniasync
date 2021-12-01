@@ -2,7 +2,7 @@
 /* Copyright 2019-2021, Intel Corporation */
 
 #include "mover.h"
-#include <pthread.h>
+#include "os_thread.h"
 #include <stdatomic.h>
 #include <stdlib.h>
 #include <string.h>

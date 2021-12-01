@@ -4,7 +4,7 @@
 #ifndef FUTURE_H
 #define FUTURE_H 1
 
-#include <unistd.h>
+#include <stddef.h>
 #include <stdint.h>
 
 enum future_state {
