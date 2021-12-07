@@ -1,11 +1,5 @@
 .*
 !.gitignore
-!.gitattributes
-!.github/
-!.travis.yml
-!.mailmap
-!.version
-build/
-*~
-*.swp
-~*
+*.d
+/build/
+cmake-build-debug/
