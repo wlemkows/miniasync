@@ -42,7 +42,9 @@ set(CORE_DEPS ${CORE_DEPS}
 	${CORE_SOURCE_DIR}/ringbuf.c)
 
 add_library(cores STATIC ${CORE_DEPS})
-add_library(miniasync SHARED ${CORE_DEPS} ${SOURCES} miniasync.def)
+add_library(miniasync SHARED ${SOURCES} miniasync.def)
+set_property(TARGET cores PROPERTY POSITION_INDEPENDENT_CODE ON)
+target_link_libraries(miniasync PRIVATE cores)
 
 target_include_directories(miniasync PRIVATE . include)
 target_include_directories(cores PRIVATE . include)
