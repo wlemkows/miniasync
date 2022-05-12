@@ -171,8 +171,17 @@ main(void)
 	UT_ASSERTeq(sizeof(struct vdm_operation_data), 64);
 
 	struct data_mover_sync *sync = data_mover_sync_new();
+	if (sync == NULL) {
+		fprintf(stderr,
+				"cannot allocate data mover sync");
+		return 1;
+	}
 	struct vdm *vdm = data_mover_sync_get_vdm(sync);
-
+	if (vdm == NULL) {
+		fprintf(stderr,
+				"cannot get sync vdm");
+		return 1;
+	}
 	test_strdup_fut(async_strdup(vdm, hello_world));
 	test_strdup_fut(async_lazy_strdup(vdm, hello_world));
 	test_too_many_ops(vdm);
